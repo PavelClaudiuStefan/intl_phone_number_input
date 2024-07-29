@@ -18,6 +18,9 @@ class SelectorButton extends StatelessWidget {
   final bool isEnabled;
   final bool isScrollControlled;
 
+  final ShapeBorder? bottomSheetButtonShape;
+  final EdgeInsets padding;
+
   final ValueChanged<Country?> onCountryChanged;
 
   const SelectorButton({
@@ -31,6 +34,8 @@ class SelectorButton extends StatelessWidget {
     required this.locale,
     required this.onCountryChanged,
     required this.isEnabled,
+    required this.bottomSheetButtonShape,
+    required this.padding,
     required this.isScrollControlled,
   }) : super(key: key);
 
@@ -49,6 +54,7 @@ class SelectorButton extends StatelessWidget {
                     trailingSpace: selectorConfig.trailingSpace,
                     textStyle: selectorTextStyle,
                   ),
+                  padding: padding,
                   value: country,
                   items: mapCountryToDropdownItem(countries),
                   onChanged: isEnabled ? onCountryChanged : null,
@@ -64,18 +70,16 @@ class SelectorButton extends StatelessWidget {
               )
         : MaterialButton(
             key: Key(TestHelper.DropdownButtonKeyValue),
-            padding: EdgeInsets.zero,
+            padding: padding,
+            shape: bottomSheetButtonShape,
             minWidth: 0,
             onPressed: countries.isNotEmpty && countries.length > 1 && isEnabled
                 ? () async {
                     Country? selected;
-                    if (selectorConfig.selectorType ==
-                        PhoneInputSelectorType.BOTTOM_SHEET) {
-                      selected = await showCountrySelectorBottomSheet(
-                          context, countries);
+                    if (selectorConfig.selectorType == PhoneInputSelectorType.BOTTOM_SHEET) {
+                      selected = await showCountrySelectorBottomSheet(context, countries);
                     } else {
-                      selected =
-                          await showCountrySelectorDialog(context, countries);
+                      selected = await showCountrySelectorDialog(context, countries);
                     }
 
                     if (selected != null) {
@@ -98,8 +102,7 @@ class SelectorButton extends StatelessWidget {
   }
 
   /// Converts the list [countries] to `DropdownMenuItem`
-  List<DropdownMenuItem<Country>> mapCountryToDropdownItem(
-      List<Country> countries) {
+  List<DropdownMenuItem<Country>> mapCountryToDropdownItem(List<Country> countries) {
     return countries.map((country) {
       return DropdownMenuItem<Country>(
         value: country,
@@ -117,8 +120,7 @@ class SelectorButton extends StatelessWidget {
   }
 
   /// shows a Dialog with list [countries] if the [PhoneInputSelectorType.DIALOG] is selected
-  Future<Country?> showCountrySelectorDialog(
-      BuildContext inheritedContext, List<Country> countries) {
+  Future<Country?> showCountrySelectorDialog(BuildContext inheritedContext, List<Country> countries) {
     return showDialog(
       context: inheritedContext,
       barrierDismissible: true,
@@ -142,16 +144,13 @@ class SelectorButton extends StatelessWidget {
   }
 
   /// shows a Dialog with list [countries] if the [PhoneInputSelectorType.BOTTOM_SHEET] is selected
-  Future<Country?> showCountrySelectorBottomSheet(
-      BuildContext inheritedContext, List<Country> countries) {
+  Future<Country?> showCountrySelectorBottomSheet(BuildContext inheritedContext, List<Country> countries) {
     return showModalBottomSheet(
       context: inheritedContext,
       clipBehavior: Clip.hardEdge,
       isScrollControlled: isScrollControlled,
       backgroundColor: Colors.transparent,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(12), topRight: Radius.circular(12))),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12))),
       useSafeArea: selectorConfig.useBottomSheetSafeArea,
       builder: (BuildContext context) {
         return Stack(children: [
@@ -159,8 +158,7 @@ class SelectorButton extends StatelessWidget {
             onTap: () => Navigator.pop(context),
           ),
           Padding(
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
+            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
             child: DraggableScrollableSheet(
               builder: (BuildContext context, ScrollController controller) {
                 return Directionality(

@@ -73,6 +73,9 @@ class InternationalPhoneNumberInput extends StatefulWidget {
 
   final TextStyle? textStyle;
   final TextStyle? selectorTextStyle;
+  final EdgeInsets selectorPadding;
+  final ShapeBorder? bottomSheetSelectorButtonShape;
+
   final InputBorder? inputBorder;
   final InputDecoration? inputDecoration;
   final InputDecoration? searchBoxDecoration;
@@ -115,6 +118,8 @@ class InternationalPhoneNumberInput extends StatefulWidget {
       this.locale,
       this.textStyle,
       this.selectorTextStyle,
+      this.selectorPadding = EdgeInsets.zero,
+      this.bottomSheetSelectorButtonShape,
       this.inputBorder,
       this.inputDecoration,
       this.searchBoxDecoration,
@@ -303,6 +308,8 @@ class _InputWidgetState extends State<InternationalPhoneNumberInput> {
         isEnabled: widget.isEnabled,
         autoFocusSearchField: widget.autoFocusSearch,
         isScrollControlled: widget.countrySelectorScrollControlled,
+        padding: widget.selectorPadding,
+        bottomSheetButtonShape: widget.bottomSheetSelectorButtonShape,
       ));
     }
 
@@ -410,6 +417,8 @@ class _InputWidgetView
                   isEnabled: widget.isEnabled,
                   autoFocusSearchField: widget.autoFocusSearch,
                   isScrollControlled: widget.countrySelectorScrollControlled,
+                  padding: widget.selectorPadding,
+                  bottomSheetButtonShape: widget.bottomSheetSelectorButtonShape,
                 ),
                 SizedBox(
                   height: state.selectorButtonBottomPadding,
