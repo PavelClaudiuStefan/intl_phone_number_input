@@ -18,6 +18,8 @@ class SelectorButton extends StatelessWidget {
   final bool isEnabled;
   final bool isScrollControlled;
 
+  final Color? backgroundColor;
+  final double? elevation;
   final ShapeBorder? bottomSheetButtonShape;
   final EdgeInsets padding;
 
@@ -34,6 +36,8 @@ class SelectorButton extends StatelessWidget {
     required this.locale,
     required this.onCountryChanged,
     required this.isEnabled,
+    required this.backgroundColor,
+    required this.elevation,
     required this.bottomSheetButtonShape,
     required this.padding,
     required this.isScrollControlled,
@@ -70,8 +74,10 @@ class SelectorButton extends StatelessWidget {
               )
         : MaterialButton(
             key: Key(TestHelper.DropdownButtonKeyValue),
+            elevation: elevation,
             padding: padding,
             shape: bottomSheetButtonShape,
+            color: backgroundColor,
             minWidth: 0,
             onPressed: countries.isNotEmpty && countries.length > 1 && isEnabled
                 ? () async {
