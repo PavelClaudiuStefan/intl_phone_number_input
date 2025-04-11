@@ -78,6 +78,7 @@ class SelectorButton extends StatelessWidget {
             padding: padding,
             shape: bottomSheetButtonShape,
             color: backgroundColor,
+            disabledColor: backgroundColor,
             minWidth: 0,
             onPressed: countries.isNotEmpty && countries.length > 1 && isEnabled
                 ? () async {
