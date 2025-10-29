@@ -41,6 +41,7 @@ class InternationalPhoneNumberInput extends StatefulWidget {
   final ValueChanged<PhoneNumber>? onInputChanged;
   final ValueChanged<bool>? onInputValidated;
 
+  final void Function(PointerDownEvent)? onTapOutside;
   final VoidCallback? onSubmit;
   final ValueChanged<String>? onFieldSubmitted;
   final String? Function(String?)? validator;
@@ -96,6 +97,7 @@ class InternationalPhoneNumberInput extends StatefulWidget {
     this.selectorConfig = const SelectorConfig(),
     required this.onInputChanged,
     this.onInputValidated,
+    this.onTapOutside,
     this.onSubmit,
     this.onFieldSubmitted,
     this.validator,
@@ -421,6 +423,7 @@ class _InputWidgetView extends WidgetView<InternationalPhoneNumberInput, _InputW
               decoration: state.getInputDecoration(widget.inputDecoration),
               textAlign: widget.textAlign,
               textAlignVertical: widget.textAlignVertical,
+              onTapOutside: widget.onTapOutside,
               onEditingComplete: widget.onSubmit,
               onFieldSubmitted: widget.onFieldSubmitted,
               autovalidateMode: widget.autoValidateMode,
