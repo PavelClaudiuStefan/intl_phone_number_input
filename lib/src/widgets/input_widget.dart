@@ -128,6 +128,8 @@ class InternationalPhoneNumberInput extends StatefulWidget {
   /// ```
   final ValueChanged<bool>? onInputValidated;
 
+  final void Function(PointerDownEvent)? onTapOutside;
+
   /// Called when the user taps the submit button (if provided).
   ///
   /// This is typically triggered by keyboard actions like "done" or "submit".
@@ -283,6 +285,11 @@ class InternationalPhoneNumberInput extends StatefulWidget {
   /// Applied to the country code and flag text in the selector button.
   final TextStyle? selectorTextStyle;
 
+  final Color? selectorBackgroundColor;
+  final double? selectorButtonElevation;
+  final EdgeInsets selectorPadding;
+  final ShapeBorder? bottomSheetSelectorButtonShape;
+
   /// Border decoration for the input field.
   ///
   /// If not provided, uses the default [InputDecoration] border.
@@ -346,6 +353,7 @@ class InternationalPhoneNumberInput extends StatefulWidget {
       this.selectorConfig = const SelectorConfig(),
       required this.onInputChanged,
       this.onInputValidated,
+      this.onTapOutside,
       this.onSubmit,
       this.onFieldSubmitted,
       this.validator,
@@ -370,6 +378,10 @@ class InternationalPhoneNumberInput extends StatefulWidget {
       this.locale,
       this.textStyle,
       this.selectorTextStyle,
+      this.selectorBackgroundColor,
+      this.selectorButtonElevation,
+      this.selectorPadding = EdgeInsets.zero,
+      this.bottomSheetSelectorButtonShape,
       this.inputBorder,
       this.inputDecoration,
       this.searchBoxDecoration,
@@ -558,6 +570,10 @@ class _InputWidgetState extends State<InternationalPhoneNumberInput> {
         isEnabled: widget.isEnabled,
         autoFocusSearchField: widget.autoFocusSearch,
         isScrollControlled: widget.countrySelectorScrollControlled,
+        backgroundColor: widget.selectorBackgroundColor,
+        elevation: widget.selectorButtonElevation,
+        padding: widget.selectorPadding,
+        bottomSheetButtonShape: widget.bottomSheetSelectorButtonShape,
       ));
     }
 
@@ -665,6 +681,10 @@ class _InputWidgetView
                   isEnabled: widget.isEnabled,
                   autoFocusSearchField: widget.autoFocusSearch,
                   isScrollControlled: widget.countrySelectorScrollControlled,
+                  backgroundColor: widget.selectorBackgroundColor,
+                  elevation: widget.selectorButtonElevation,
+                  padding: widget.selectorPadding,
+                  bottomSheetButtonShape: widget.bottomSheetSelectorButtonShape,
                 ),
                 SizedBox(
                   height: state.selectorButtonBottomPadding,
@@ -690,6 +710,7 @@ class _InputWidgetView
               textAlignVertical: widget.textAlignVertical,
               onEditingComplete: widget.onSubmit,
               onFieldSubmitted: widget.onFieldSubmitted,
+              onTapOutside: widget.onTapOutside,1
               autovalidateMode: widget.autoValidateMode,
               autofillHints: widget.autofillHints,
               validator: widget.validator ?? state.validator,
