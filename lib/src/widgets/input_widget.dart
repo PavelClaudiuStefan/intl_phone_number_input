@@ -710,7 +710,7 @@ class _InputWidgetView
               textAlignVertical: widget.textAlignVertical,
               onEditingComplete: widget.onSubmit,
               onFieldSubmitted: widget.onFieldSubmitted,
-              onTapOutside: widget.onTapOutside,1
+              onTapOutside: widget.onTapOutside,
               autovalidateMode: widget.autoValidateMode,
               autofillHints: widget.autofillHints,
               validator: widget.validator ?? state.validator,
